@@ -22,7 +22,7 @@ jobs:
       - name: set env
         working-directory: ./mock-test
         run: |
-          echo" PORT=${{ secrets.PORT }}" > .env
+          echo "PORT=${{ secrets.PORT }}" > .env
           echo "MESSAGE=${{ secrets.MESSAGE }}" >> .env
           echo "">> .env
           echo "MYSQL_HOST=${{ secrets.MYSQL_HOST }}" >> .env
