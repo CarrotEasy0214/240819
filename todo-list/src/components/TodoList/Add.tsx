@@ -1,17 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import { addTodo } from "../../lib/todoAxios";
 
 const AddTodo = (): JSX.Element => {
   const [inputValue, setInputValue] = useState<string>("");
   const client = useQueryClient();
 
-  const onChange = useCallback(
-    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-      setInputValue(value);
-    },
-    []
-  );
+  const onChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(value);
+  }, []);
 
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: async () => {
