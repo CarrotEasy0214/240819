@@ -20,6 +20,8 @@ jest.mock("sequelize-typescript", () => {
       static create = jest.fn();
       static findByPk = jest.fn();
       static findAll = jest.fn();
+      // save = jest.fn();
+      // destroy = jest.fn();
       // constructor(...args: any[]) {
       //   super(args);
       //   this.save = jest.fn();
@@ -81,7 +83,9 @@ describe("Test Todo", () => {
   test("Test Add Todo Item", async () => {
     (Todo.create as jest.Mock).mockResolvedValue(todoInstance);
 
-    const response = await request(app).post("/todo").send({ title: "test todo list" });
+    const response = await request(app)
+      .post("/todo")
+      .send({ title: "test todo list" });
     expect(response.status).toBe(201);
     expect(response.body).toEqual({
       id: 1,
@@ -100,6 +104,7 @@ describe("Test Todo", () => {
 
   test("Test Get List", async () => {
     (Todo.findAll as jest.Mock).mockResolvedValue([todoInstance]);
+
     const response = await request(app).get("/todo");
     expect(response.status).toBe(200);
     expect(response.body).toEqual([
@@ -113,7 +118,10 @@ describe("Test Todo", () => {
 
   test("Test Update Todo Item", async () => {
     (Todo.findByPk as jest.Mock).mockResolvedValue(todoInstance);
-    const response = await request(app).patch("/todo").send({ id: 1, isCompleted: true });
+
+    const response = await request(app)
+      .patch("/todo")
+      .send({ id: 1, isCompleted: true });
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       id: 1,
@@ -125,21 +133,38 @@ describe("Test Todo", () => {
   test("Test Delete Todo Item", async () => {
     (Todo.findByPk as jest.Mock).mockResolvedValue(todoInstance);
     (Todo.findAll as jest.Mock).mockResolvedValue([]);
+
     const response = await request(app).delete("/todo/1");
     expect(response.status).toBe(200);
     expect(response.body).toEqual([]);
   });
 
   test("Test Add Todo Items", async () => {
-    (Todo.create as jest.Mock).mockResolvedValue(todoInstance);
-    (Todo.findAll as jest.Mock).mockResolvedValue([todoInstance]);
+    (Todo.findAll as jest.Mock).mockResolvedValue([
+      {
+        id: 2,
+        title: "test todo list",
+        isCompleted: false,
+      },
+      {
+        id: 3,
+        title: "test todo list",
+        isCompleted: false,
+      },
+    ]);
+
     await request(app).post("/todo").send({ title: "test todo list" });
     await request(app).post("/todo").send({ title: "test todo list" });
     const response = await request(app).get("/todo");
     expect(response.status).toBe(200);
     expect(response.body).toEqual([
       {
-        id: 1,
+        id: 2,
+        title: "test todo list",
+        isCompleted: false,
+      },
+      {
+        id: 3,
         title: "test todo list",
         isCompleted: false,
       },

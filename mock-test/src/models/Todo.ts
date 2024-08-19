@@ -1,5 +1,11 @@
-import { Model } from "sequelize-typescript";
-import { AutoIncrement, Column, DataType, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AutoIncrement,
+  Column,
+  DataType,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 
 @Table({
   tableName: "todos",

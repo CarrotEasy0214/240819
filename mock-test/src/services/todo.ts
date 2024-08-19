@@ -6,8 +6,8 @@ import Todo from "../models/Todo";
 //   isCompleted: boolean;
 // }
 
-let todoList: Todo[] = [];
-let todoId = 1;
+// let todoList: Todo[] = [];
+// let todoId = 1;
 
 export const add = async (title: string) => {
   if (title?.length) {
@@ -30,7 +30,15 @@ export const getList = async () => {
   // return [...todoList];
 };
 
-export const patchTodo = async ({ id, title, isCompleted }: { id: number; title?: string; isCompleted?: boolean }) => {
+export const patchTodo = async ({
+  id,
+  title,
+  isCompleted,
+}: {
+  id: number;
+  title?: string;
+  isCompleted?: boolean;
+}) => {
   try {
     const todo = await Todo.findByPk(id);
     // const todo = todoList.find((item: Todo) => item.id === id);
