@@ -1,5 +1,9 @@
 const DeleteTodo = () => {
-  return <div>삭제</div>;
+  return (
+    <div>
+      <button>Delete Todo</button>
+    </div>
+  );
 };
 
 export default DeleteTodo;
