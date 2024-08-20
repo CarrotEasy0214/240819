@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getList, Todo as ITodo } from "../../lib/todoAxios";
 import AddTodo from "./Add";
+import DeleteTodo from "./Delete";
 
 const TodoList = (): JSX.Element => {
   const { data, error, isError, isLoading } = useQuery({
@@ -19,6 +20,7 @@ const TodoList = (): JSX.Element => {
         {data?.map((item: ITodo, idx: number) => (
           <li key={idx}>{item.title}</li>
         ))}
+        <DeleteTodo />
       </ul>
     </div>
   );

@@ -55,7 +55,6 @@ describe("Test Todo List", () => {
   });
 
   test("Add New Todo", async () => {
-    // 작성해보자
     const data = { id: 1, title: "test todo list", isCompleted: false };
     mock.onGet("/todo").reply(200, [data, { id: 1, title: "first Todo", isCompleted: false }]);
 

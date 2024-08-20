@@ -8,7 +8,6 @@ import Todo from "../models/Todo";
 
 config();
 
-// jest.mock('../models/Todo')
 jest.mock("sequelize-typescript", () => {
   const actual = jest.requireActual("sequelize-typescript");
   return {
@@ -20,26 +19,9 @@ jest.mock("sequelize-typescript", () => {
       static create = jest.fn();
       static findByPk = jest.fn();
       static findAll = jest.fn();
-      // save = jest.fn();
-      // destroy = jest.fn();
-      // constructor(...args: any[]) {
-      //   super(args);
-      //   this.save = jest.fn();
-      //   this.destroy = jest.fn();
-      // }
     },
   };
 });
-// jest.mock("../services/todo", () => ({
-//   add: jest.fn().mockReturnValue(1),
-//   getList: jest.fn().mockResolvedValue(1).mockRejectedValue(2),
-//   patchTodo: jest.fn((num: number) => {
-//     if (num == 1) return "one";
-//     if (num == 2) return "two";
-//     if (num > 2) return "much";
-//   }),
-//   deleteTodo: jest.fn(),
-// }));
 
 describe("Test Todo", () => {
   let app: Express;
@@ -83,9 +65,7 @@ describe("Test Todo", () => {
   test("Test Add Todo Item", async () => {
     (Todo.create as jest.Mock).mockResolvedValue(todoInstance);
 
-    const response = await request(app)
-      .post("/todo")
-      .send({ title: "test todo list" });
+    const response = await request(app).post("/todo").send({ title: "test todo list" });
     expect(response.status).toBe(201);
     expect(response.body).toEqual({
       id: 1,
@@ -119,9 +99,7 @@ describe("Test Todo", () => {
   test("Test Update Todo Item", async () => {
     (Todo.findByPk as jest.Mock).mockResolvedValue(todoInstance);
 
-    const response = await request(app)
-      .patch("/todo")
-      .send({ id: 1, isCompleted: true });
+    const response = await request(app).patch("/todo").send({ id: 1, isCompleted: true });
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       id: 1,

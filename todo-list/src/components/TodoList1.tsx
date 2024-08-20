@@ -29,12 +29,6 @@ const TodoList = (): JSX.Element => {
     },
   });
 
-  // const addHandler = useCallback(() => {
-  //   // setList((state) => [...state, inputValue]);
-  //   addTodo({ title: inputValue });
-  //   setInputValue("");
-  // }, [inputValue]);
-
   if (isLoading) return <div>now Loading</div>;
   if (isError) return <div>{error.message}</div>;
 
